@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Energy Efficiency Predictor</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="container">
+    <h1>Energy Efficiency Predictor</h1>
+    
+   
+    <form method="POST" action="/predict" autocomplete="off">
+      <div class="input-group">
+        <input type="number" name="X1" step="any" required placeholder="Relative Compactness (X1)" />
+        <input type="number" name="X2" step="any" required placeholder="Surface Area (X2)" />
+      </div>
+      <div class="input-group">
+        <input type="number" name="X3" step="any" required placeholder="Wall Area (X3)" />
+        <input type="number" name="X4" step="any" required placeholder="Roof Area (X4)" />
+      </div>
+      <div class="input-group">
+        <input type="number" name="X5" step="any" required placeholder="Overall Height (X5)" />
+        <input type="number" name="X6" step="any" required placeholder="Orientation (X6)" />
+      </div>
+      <div class="input-group">
+        <input type="number" name="X7" step="any" required placeholder="Glazing Area (X7)" />
+        <input type="number" name="X8" step="any" required placeholder="Glazing Area Distribution (X8)" />
+      </div>
+      <button type="submit">Predict</button>
+    </form>
+
+    {% if heating is not none and cooling is not none %}
+    <div class="output">
+      <p><strong>Predicted Heating Load (Y1):</strong> {{ heating }}</p>
+      <p><strong>Predicted Cooling Load (Y2):</strong> {{ cooling }}</p>
+    </div>
+    {% endif %}
+  </div>
+
+  <script>
+    // Simple input animation on focus for better UX
+    document.querySelectorAll('input[type="number"]').forEach(input => {
+      input.addEventListener('focus', () => {
+        input.style.backgroundColor = '#e8f0fe';
+      });
+      input.addEventListener('blur', () => {
+        input.style.backgroundColor = '';
+      });
+    });
+  </script>
+</body>
+</html>
